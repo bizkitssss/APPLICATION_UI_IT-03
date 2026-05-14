@@ -1,0 +1,34 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="closeModal()" ng-disabled="isSaving">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">IT 03-3 ระบุเหตุผลไม่อนุมัติ</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="alert alert-danger" ng-if="modalError">{{modalError}}</div>
+
+            <p class="modal-summary">ต้องการไม่อนุมัติ {{selectedItems.length}} รายการ</p>
+
+            <div class="form-group" ng-class="{'has-error': modalError}">
+                <label for="rejectReason">เหตุผล <span class="required">*</span></label>
+                <textarea id="rejectReason"
+                          class="form-control"
+                          rows="4"
+                          ng-model="modalForm.reason"
+                          ng-disabled="isSaving"
+                          placeholder="กรุณาระบุเหตุผล"></textarea>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="closeModal()" ng-disabled="isSaving">ยกเลิก</button>
+            <button type="button" class="btn btn-danger" ng-click="confirmReject()" ng-disabled="isSaving">
+                <span class="spinner spinner-button" ng-if="isSaving"></span>
+                ไม่อนุมัติ
+            </button>
+        </div>
+    </div>
+</div>

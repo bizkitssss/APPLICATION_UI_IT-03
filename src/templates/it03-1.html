@@ -1,0 +1,75 @@
+<div class="it03-page" ng-controller="DocumentApprovalController">
+    <div class="page-header it03-header">
+        <h3>IT 03-1</h3>
+    </div>
+
+    <div class="alert alert-{{alert.type}}" ng-if="alert">
+        {{alert.message}}
+    </div>
+
+    <div class="action-section">
+        <button type="button" class="btn btn-success" ng-click="approveSelected()" ng-disabled="isSaving || isLoading">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            อนุมัติ
+        </button>
+
+        <button type="button" class="btn btn-danger" ng-click="rejectSelected()" ng-disabled="isSaving || isLoading">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            ไม่อนุมัติ
+        </button>
+
+        <span class="selected-summary" ng-if="selectedItems.length > 0">
+            เลือก {{selectedItems.length}} รายการ
+        </span>
+    </div>
+
+    <div class="table-wrap">
+        <div class="loading-inline" ng-if="isLoading">
+            <span class="spinner"></span>
+            กำลังโหลดข้อมูล
+        </div>
+
+        <table class="table table-bordered table-hover text-center it03-table">
+            <thead>
+                <tr>
+                    <th class="select-col">เลือก</th>
+                    <th>รายการ</th>
+                    <th>เหตุผล</th>
+                    <th>สถานะเอกสาร</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in documentList" ng-class="{'row-selected': item.selected && item.status !== 'APPROVED'}">
+                    <td class="select-col">
+                        <input type="checkbox"
+                               ng-model="item.selected"
+                               ng-change="toggleSelection(item)"
+                               ng-disabled="item.status == 'APPROVED'">
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.reason}}</td>
+                    <td>
+                        <span class="status-label" ng-class="getStatusClass(item.status)">
+                            {{getStatusText(item.status)}}
+                        </span>
+                    </td>
+                </tr>
+
+                <tr ng-if="!isLoading && documentList.length === 0">
+                    <td colspan="4" class="empty-state">ไม่พบข้อมูล</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-backdrop in" ng-if="modalType"></div>
+
+    <div class="modal in modal-visible" ng-if="modalType == 'approve'" role="dialog" aria-modal="true">
+        <div ng-include="'src/templates/modal-approve.html'"></div>
+    </div>
+
+    <div class="modal in modal-visible" ng-if="modalType == 'reject'" role="dialog" aria-modal="true">
+        <div ng-include="'src/templates/modal-reject.html'"></div>
+    </div>
+</div>

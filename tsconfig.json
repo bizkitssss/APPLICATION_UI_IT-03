@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "none",
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "lib": ["DOM", "ES5", "ES2015.Promise"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "dev-server.ts"
+  ]
+}

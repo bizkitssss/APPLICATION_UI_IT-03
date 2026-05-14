@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node dist/dev-server.js 8091 .",
+    "start": "node dist/dev-server.js 8091 ."
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
